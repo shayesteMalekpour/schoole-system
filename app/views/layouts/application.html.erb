@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "School System" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="School System">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <nav class="bg-white border-b border-gray-200 fixed w-full z-30 top-0">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex">
+            <%# Logo Section %>
+            <div class="flex-shrink-0 flex items-center">
+              <span class="text-blue-600 font-bold text-xl tracking-tight">EduStream</span>
+            </div>
+
+            <%# Navigation Links %>
+            <div class="hidden sm:-my-px sm:ml-8 sm:flex sm:space-x-8">
+              <%= link_to "Dashboard",
+              root_path,
+              class:
+                "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+
+              <%= link_to "Teachers",
+              teachers_path,
+              class:
+                "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+
+              <%= link_to "Students",
+              students_path,
+              class:
+                "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+
+              <%= link_to "Courses",
+              courses_path,
+              class:
+                "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+            </div>
+          </div>
+
+          <%# Right side user/action slot (optional) %>
+          <div class="flex items-center">
+            <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded font-mono">v1.0-dev</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <%# Important: Adjust the main container to not be hidden behind the fixed nav %>
+    <main class="container mx-auto mt-20 px-5">
+      <%= yield %>
+    </main>
+
+  </body>
+</html>

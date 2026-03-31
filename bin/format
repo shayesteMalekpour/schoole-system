@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  echo "Usage: bin/format [--erb|--all]"
+  echo
+  echo "Formats project files."
+  echo "  --erb  Format ERB templates only (default)"
+  echo "  --all  Format ERB templates and auto-correct Ruby with RuboCop"
+  exit 0
+fi
+
+echo "Formatting ERB templates..."
+bundle exec erb-format app/views/**/*.erb --write
+
+if [[ "${1:-}" == "--all" ]]; then
+  echo "Running RuboCop auto-correct..."
+  bundle exec rubocop -a
+fi
+
+echo "Formatting complete."

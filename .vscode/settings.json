@@ -1,0 +1,16 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "[ruby]": {
+    "editor.formatOnSave": true
+  },
+  "[erb]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "Shopify.ruby-lsp"
+  },
+  "rubyLsp.erbSupport": true,
+  "rubyLsp.formatter": "rubocop_internal",
+  "files.associations": {
+    "*.html.erb": "erb"
+  }
+}

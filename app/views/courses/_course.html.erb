@@ -1,0 +1,126 @@
+<div
+  id="<%= dom_id course %>"
+  class="
+    group relative bg-white rounded-2xl border border-slate-200 shadow-sm
+    hover:shadow-md hover:border-blue-200 transition-all duration-200
+    overflow-hidden
+  "
+>
+  <%# Top Accent Bar %>
+  <div
+    class="h-1.5 w-full <%= course.teacher.present? ? 'bg-blue-500' : 'bg-amber-400' %>"
+  ></div>
+
+  <div class="p-6 space-y-5">
+    <%# Header Section %>
+    <div class="flex justify-between items-start">
+      <div class="space-y-1">
+        <h3
+          class="
+            text-xl font-extrabold text-slate-900 group-hover:text-blue-600
+            transition-colors
+          "
+        >
+          <%= course.title %>
+        </h3>
+        <div class="flex items-center space-x-2">
+          <span
+            class="
+              inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-slate-100
+              text-slate-500 uppercase tracking-tighter
+            "
+          >
+            ID: #<%= course.id %>
+          </span>
+        </div>
+      </div>
+
+      <%# Action Link %>
+      <%= link_to course, class: "p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+          ></path></svg>
+      <% end %>
+    </div>
+
+    <%# Description %>
+    <div class="relative">
+      <strong
+        class="
+          block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5
+        "
+      >Description</strong>
+      <p class="text-slate-600 text-sm leading-relaxed line-clamp-2 italic">
+        "<%= course.description %>"
+      </p>
+    </div>
+
+    <%# Footer Grid %>
+    <div class="pt-5 border-t border-slate-100 flex items-center justify-between">
+      <%# Instructor Block %>
+      <div class="flex flex-col">
+        <span
+          class="
+            text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2
+          "
+        >Instructor</span>
+        <% if course.teacher.present? %>
+          <div class="flex items-center gap-2 group/teacher">
+            <div
+              class="
+                w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600
+              "
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path
+                  fill-rule="evenodd"
+                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                  clip-rule="evenodd"
+                ></path></svg>
+            </div>
+            <span
+              class="
+                text-sm font-semibold text-slate-700 hover:text-blue-600 transition
+                cursor-default
+              "
+            >
+              <%= course.teacher.name %>
+            </span>
+          </div>
+        <% else %>
+          <div
+            class="
+              flex items-center gap-2 px-3 py-1 bg-amber-50 rounded-lg border border-amber-100
+            "
+          >
+            <span class="relative flex h-2 w-2">
+              <span
+                class="
+                  animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400
+                  opacity-75
+                "
+              ></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+            </span>
+            <span class="text-xs font-bold text-amber-700 uppercase italic">Needs Staffing</span>
+          </div>
+        <% end %>
+      </div>
+
+      <%# Stats Block %>
+      <div class="text-right">
+        <span
+          class="
+            text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 block
+          "
+        >Capacity</span>
+        <div class="flex items-center justify-end gap-1">
+          <span class="text-lg font-black text-slate-900 leading-none tracking-tighter"><%= course.students.count %></span>
+          <span class="text-xs text-slate-500 font-medium lowercase">enrolled</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

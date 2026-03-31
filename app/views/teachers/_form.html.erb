@@ -1,0 +1,85 @@
+<%= form_with(model: teacher, class: "contents") do |form| %>
+  <% if teacher.errors.any? %>
+    <div
+      id="error_explanation"
+      class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3"
+    >
+      <h2><%= pluralize(teacher.errors.count, "error") %>
+        prohibited this teacher from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% teacher.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :name %>
+    <%= form.text_field :name,
+                    class: [
+                      "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full",
+                      {
+                        "border-gray-400 focus:outline-blue-600":
+                          teacher.errors[:name].none?,
+                        "border-red-400 focus:outline-red-600":
+                          teacher.errors[:name].any?,
+                      },
+                    ] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :bio %>
+    <%= form.textarea :bio,
+                  rows: 4,
+                  class: [
+                    "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full",
+                    {
+                      "border-gray-400 focus:outline-blue-600":
+                        teacher.errors[:bio].none?,
+                      "border-red-400 focus:outline-red-600":
+                        teacher.errors[:bio].any?,
+                    },
+                  ] %>
+  </div>
+  <div class="my-6">
+    <div class="flex justify-between items-center mb-3">
+      <%= form.label :course_ids,
+                 "Assign to Courses",
+                 class:
+                   "block text-sm font-semibold text-gray-700 uppercase tracking-wider" %>
+      <%= link_to "+ Create New Course First",
+      new_course_path,
+      class:
+        "text-xs font-bold text-blue-600 hover:text-blue-800 bg-blue-50 px-2 py-1 rounded" %>
+    </div>
+
+    <div
+      class="
+        grid grid-cols-1 md:grid-cols-2 gap-3 p-4 bg-white border border-gray-200
+        rounded-xl shadow-sm max-h-60 overflow-y-auto
+      "
+    >
+      <%= form.collection_check_boxes :course_ids, Course.order(:title), :id, :title do |b| %>
+        <label
+          class="
+            flex items-center p-3 rounded-lg border border-transparent hover:border-blue-200
+            hover:bg-blue-50 transition-all cursor-pointer group
+          "
+        >
+          <%= b.check_box(
+            class:
+              "h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition cursor-pointer",
+          ) %>
+          <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-blue-900"><%= b.text %></span>
+        </label>
+      <% end %>
+    </div>
+    <p class="mt-2 text-xs text-gray-400 font-italic">Select all courses this instructor will be teaching.</p>
+  </div>
+  <div class="inline">
+    <%= form.submit class:
+                  "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>
