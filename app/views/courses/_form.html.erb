@@ -43,6 +43,18 @@
                     ] %>
   </div>
 
+  <div class="my-5">
+    <%= form.label :teacher_id, "Instructor", class: "block font-medium text-gray-700" %>
+    <%= form.collection_select :teacher_id,
+                           Teacher.order(:name),
+                           :id,
+                           :name,
+                           { prompt: "Select a teacher", include_blank: "No teacher" },
+                           {
+                             class:
+                               "block shadow-sm rounded-md border border-gray-400 px-3 py-2 mt-2 w-full focus:outline-blue-600",
+                           } %>
+  </div>
 
   <div class="inline">
     <%= form.submit class:
